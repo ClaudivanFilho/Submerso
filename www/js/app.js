@@ -128,6 +128,7 @@ angular.module('starter', ['ionic'])
 	return [-1, -1];
   }
   
+  // obtem a direção oposta de uma direção
   $scope.getDirecaoOposta = function(direcao) {
 	switch (direcao) {
 		case 'left': 
@@ -140,38 +141,26 @@ angular.module('starter', ['ionic'])
 			return 'up';
 	}
   }
-	  
-	
-    $scope.sleep = function(miliseconds) {
-	var start = new Date().getTime();
-	for (var i = 0; i < 1e7; i++) {
-		if ((new Date().getTime() - start) > miliseconds) {
-			break;
-		}
-	}
-    }
-	
-  $scope.embaralhar = function(numeroVezes) {
+  
+  // embaralha o tabuleiro em um determinado numero de vezes (outros parametros sao opcionais usados pela recursão)
+  $scope.embaralhar = function(numeroVezes, cont, direcaoAnterior) {
+	cont = cont || 0;
 	if (cont >= numeroVezes) return;
-	var movimentosPossiveis = ['left', 'right', 'up', 'down'];
-	var direcaoAnterior;
-	var cont = 0;
-	var cont2 = 0;
-	while (cont < numeroVezes && cont2++ < 20) {
-		var rand, direcao;
+	var movimentoEhPossivel, movimentoEhValido, direcao, quadradoASeMover;
+	do {
+		var movimentosPossiveis = ['left', 'right', 'up', 'down'];
 		var rand = parseInt(Math.floor(Math.random() * 4)) 
-		var direcao = movimentosPossiveis[rand];
-		var quadradoASeMover = $scope.escolheQuadrado(direcao);
-		//console.log(quadradoASeMover + " ... " + direcao);
-		var movimentoEhValido = direcao != $scope.getDirecaoOposta(direcaoAnterior);
-		var movimentoEhPossivel = $scope.verificaMovimento(direcao, quadradoASeMover[0], quadradoASeMover[1]);
-		if (movimentoEhValido && movimentoEhPossivel) {
-			console.log(direcao);
-			$scope.efetivaMovimento(direcao, quadradoASeMover[0], quadradoASeMover[1]);
-			direcaoAnterior = direcao;
-			cont++;
-		}
-	}
+		direcao = movimentosPossiveis[rand];
+		quadradoASeMover = $scope.escolheQuadrado(direcao);
+		movimentoEhValido = direcao != $scope.getDirecaoOposta(direcaoAnterior);
+		movimentoEhPossivel = $scope.verificaMovimento(direcao, quadradoASeMover[0], quadradoASeMover[1]);
+	} while (!(movimentoEhValido && movimentoEhPossivel));
+	$scope.efetivaMovimento(direcao, quadradoASeMover[0], quadradoASeMover[1]);
+	setTimeout(function() {
+		$scope.$apply(function() {
+			$scope.embaralhar(numeroVezes, cont + 1, direcao);
+		});
+	}, 500);
   }
   
 });
