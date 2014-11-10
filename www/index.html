@@ -31,6 +31,10 @@
 
       <ion-content style="background-color:#285e8e;">
       <div ng-controller="MainController">
+		  <div class="row">
+				<button class="button button-light col-sm-6" ng-click="embaralhar(9)">Embaralhar</button>
+				<button class="button button-light col-sm-6 col-sm-offset-6">Resolver</button>
+		  </div>
           <br/><br/>
           <div ng-repeat="(index1, linha) in matrizJogo" class="col-sm-6 col-sm-offset-3" style="margin-bottom:3px;">
               <div ng-repeat="(index2, coluna) in linha"  style="width:32%;margin:1px;float:left;">
