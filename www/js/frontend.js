@@ -99,7 +99,8 @@ $(document).ready(function() {
 				if (!(i == DIMENSAO - 1 && j == DIMENSAO - 1)) {
 					var id = i * DIMENSAO + j + 1;
 					var htmlImg = "<img src='img/" + desenho + "/parte" + id + ".gif' />";
-					var htmlDiv = "<div id='c" + id + "'>" + htmlImg + "</div>";
+					var htmlNumero = "<p style='position: absolute; right: 0; left: 0; margin: auto; color: rgba(255, 255, 255, 0);'>" + id + "</p>";
+					var htmlDiv = "<div id='c" + id + "'>" + htmlNumero + htmlImg + "</div>";
 					$("#container").append(htmlDiv);
 					var elemento = $("#c" + id);
 					elemento.css("left", j * (TAMANHO + MARGEM));
@@ -129,6 +130,36 @@ $(document).ready(function() {
 		}, 1000);
 	}
 	
+	function esconderNumeros(opacidade) {
+		opacidade = opacidade || 1.0;
+		if (opacidade <= 0) return;
+		for (var i = 1; i < Math.pow(DIMENSAO, 2); i++) {
+			var texto = $("#c" + i + " p");
+			texto.css("color", "rgba(255, 255, 255, " + opacidade + ")");
+		}
+		setTimeout(function() {
+			esconderNumeros(opacidade - 0.01);
+		}, 20);
+	}
+	
+	function mostrarNumeros(opacidade) {
+		opacidade = opacidade || 0;
+		if (opacidade >= 1.0) {
+			var duracaoNumeros = parseInt($("#duracao-numeros").val());
+			setTimeout(function() {
+				esconderNumeros();
+			}, duracaoNumeros);
+			return;
+		}
+		for (var i = 1; i < Math.pow(DIMENSAO, 2); i++) {
+			var texto = $("#c" + i + " p");
+			texto.css("color", "rgba(255, 255, 255, " + opacidade + ")");
+		}
+		setTimeout(function() {
+			mostrarNumeros(opacidade + 0.01);
+		}, 20);
+	}
+		
 	function init() {
 		defineTamanho();
 		//inicia
@@ -166,6 +197,7 @@ $(document).ready(function() {
 		var funcaoReinicia = function() {
 			$("#tela-derrota").hide();
 			$("#tela-vencer").hide();
+			$(".mostrar-numero").removeAttr("disabled");
 			puzzle.reinicia();
 			funcaoEmbaralhar(function() {
 				cronometro.reinicia();
@@ -200,6 +232,24 @@ $(document).ready(function() {
 			diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo);
 		});
 		
+		//mostra os numeros
+		$(".mostrar-numero").on("click", function() {
+			$(this).attr("disabled", "disabled");
+			mostrarNumeros();
+		});
+		
+		//mutar 
+		$(".mutar").on("click", function() {
+			if ($(this).data("mutado") == "true") {
+				$(this).find("i").removeClass("fa-bell-slash");
+				$(this).find("i").addClass("fa-bell");
+				$(this).data("mutado", "false");
+			} else {
+				$(this).find("i").removeClass("fa-bell");
+				$(this).find("i").addClass("fa-bell-slash");
+				$(this).data("mutado", "true");
+			}	
+		});
 	}
 	
 });

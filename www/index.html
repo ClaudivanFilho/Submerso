@@ -8,6 +8,7 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -59,14 +60,21 @@
 			<button class="button button-light col-sm-6" id="resolver">Resolver</button>
 		</div>
 		
+		<div id="mostrar-numero-container">
+			<button class="button button-light mostrar-numero"><i class="fa fa-heart"></i></button>
+			<button class="button button-light mutar" data-mutado="false"><i class="fa fa-bell"></i></button>
+			<button class="button button-light ajuda"><i class="fa fa-question"></i></button>
+		</div>
+		
 		<!-- Configurações do jogo -->
 		<input type="hidden" id="dimensao" value="3" /> <!-- Número de blocos -->
 		<input type="hidden" id="velocidade" value="200" /> <!-- Velocidade da animação dos blocos -->
-		<input type="hidden" id="embaralhos" value="6" /> <!-- Número de embaralhos feitos inicialmente -->
-		<input type="hidden" id="tempo-total" value="60" /> <!-- Em segundos -->
+		<input type="hidden" id="embaralhos" value="9" /> <!-- Número de embaralhos feitos inicialmente -->
+		<input type="hidden" id="tempo-total" value="300" /> <!-- Em segundos -->
 		<input type="hidden" id="margem" value="5" /> <!-- Em pixels -->
 		<input type="hidden" id="porcentagem" value="0.8" /> <!-- Porcentagem da tela que os blocos ocuparão -->
-	
+		<input type="hidden" id="duracao-numeros" value="3.0" /> <!-- Duração de mostrar os números em segundos -->
+		
 		<div class="divisor"></div>
 		
 		<!-- Container dos blocos -->
