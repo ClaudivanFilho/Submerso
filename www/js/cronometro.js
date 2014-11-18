@@ -1,6 +1,7 @@
 function Cronometro(tempoTotal) {
 	this.tempoTotal = tempoTotal;
 	this.tempoAtual = this.tempoTotal;
+	this.isPausado = false;
 };
 
 Cronometro.prototype.diminuiTempo = function() {
@@ -17,4 +18,13 @@ Cronometro.prototype.tempoRestante = function() {
 
 Cronometro.prototype.reinicia = function() {
 	this.tempoAtual = this.tempoTotal;
-}
+	this.isPausado = false;
+};
+
+Cronometro.prototype.pausa = function() {
+	this.isPausado = true;
+};
+
+Cronometro.prototype.pausado = function() {
+	return this.isPausado;
+};

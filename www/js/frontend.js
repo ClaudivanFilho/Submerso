@@ -116,7 +116,9 @@ $(document).ready(function() {
 	}
 
 	function diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo) {
-		if (cronometro.tempoEsgotado()) {
+		if (cronometro.pausado()) {
+			return;
+		} else if (cronometro.tempoEsgotado()) {
 			funcaoPerderJogo();
 			return;
 		}
@@ -152,28 +154,42 @@ $(document).ready(function() {
 				var direcao = puzzle.move(num);
 				if (direcao != null) {
 					movimentar(id, direcao);
+					//se está resolvido, vence o jogo
+					if (puzzle.estaResolvido()) {
+						funcaoVencerJogo();
+					}
 				}
 			}
 		});
 		
 		//reinicia o jogo 
 		var funcaoReinicia = function() {
-			$("#tela-derrota").css("display", "none");
+			$("#tela-derrota").hide();
+			$("#tela-vencer").hide();
+			puzzle.reinicia();
 			funcaoEmbaralhar(function() {
 				cronometro.reinicia();
 				diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo);
 			});
 		};
+		$(".reiniciar-jogo").on("click", funcaoReinicia);
 		
 		//perde o jogo
+		$("#tela-derrota").hide();
 		var funcaoPerderJogo = function() {
+			cronometro.pausa();
 			funcaoResolver(function() {
-				$("#tela-derrota").css("display", "normal");
+				$("#tela-derrota").show();
 			});
 		};
-		$("#reiniciar-jogo").on("click", funcaoReinicia);
 		
 		//vence o jogo
+		$("#tela-vencer").hide();
+		var funcaoVencerJogo = function() {
+			cronometro.pausa();
+			$("#tela-vencer h2").text("Você venceu em " + (puzzle.getQuantMovimentos() - NUM_EMBARALHOS) + " passos!");
+			$("#tela-vencer").show();
+		}
 		
 		//cronometro 
 		var tempoTotal = parseInt($("#tempo-total").val());

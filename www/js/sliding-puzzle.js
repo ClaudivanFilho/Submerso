@@ -150,3 +150,24 @@ Puzzle.prototype.resolve = function() {
 		}
 	}
 };
+
+Puzzle.prototype.estaResolvido = function() {
+	for (var i = 0; i < this.dimensao; i++) {
+		for (var j = 0; j < this.dimensao; j++) {
+			if (!(i == this.dimensao - 1 && j == this.dimensao - 1)) {
+				if (this.tabuleiro[i][j] != i * this.dimensao + j + 1) {
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+};
+
+Puzzle.prototype.reinicia = function() {
+	this.movimentos = [];
+};
+
+Puzzle.prototype.getQuantMovimentos = function() {
+	return this.movimentos.length;
+};
