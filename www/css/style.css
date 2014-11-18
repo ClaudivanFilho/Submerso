@@ -1,1 +1,15 @@
 /* Empty. Add your own CSS if you like */
+#container {
+	position: relative;
+}
+#container div {
+	position: absolute;
+	text-align: center;
+	cursor: pointer;
+}
+#container img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
