@@ -14,3 +14,7 @@ Cronometro.prototype.tempoEsgotado = function() {
 Cronometro.prototype.tempoRestante = function() {
 	return this.tempoAtual / this.tempoTotal;
 };
+
+Cronometro.prototype.reinicia = function() {
+	this.tempoAtual = this.tempoTotal;
+}

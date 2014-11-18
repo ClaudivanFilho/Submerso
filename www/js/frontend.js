@@ -6,6 +6,8 @@ $(document).ready(function() {
 	var MARGEM = parseInt($("#margem").val());;
 	var TAMANHO;
 	
+	var movimentoLock = false; //desabilita o movimento dos blocos pelo usuário
+	
 	init();
 	
 	function movimentar(id, direcao) {
@@ -48,8 +50,10 @@ $(document).ready(function() {
 	}
 
 	function embaralhar(puzzle, numeroVezes, callbackFunction, ultimoASerMovimentado) {
+		movimentoLock = true;
 		if (numeroVezes <= 0) {
 			callbackFunction();
+			movimentoLock = false;
 			return;
 		}
 		var blocoMovimentado = movimentarAleatoriamente(puzzle, ultimoASerMovimentado);
@@ -59,8 +63,10 @@ $(document).ready(function() {
 	}
 
 	function resolver(puzzle, caminho, callbackFunction) {
+		movimentoLock = true;
 		if (caminho.length == 0) {
 			callbackFunction();
+			movimentoLock = false;
 			return;
 		}
 		var blocoASeMovimentar = caminho.shift();
@@ -109,41 +115,75 @@ $(document).ready(function() {
 		$("#container").css("height", (TAMANHO + MARGEM) * DIMENSAO);	
 	}
 
+	function diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo) {
+		if (cronometro.tempoEsgotado()) {
+			funcaoPerderJogo();
+			return;
+		}
+		cronometro.diminuiTempo();
+		tempoRestante.css("width", cronometro.tempoRestante() * 100 + "%");
+		setTimeout(function() {
+			diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo);
+		}, 1000);
+	}
+	
 	function init() {
 		defineTamanho();
 		//inicia
 		var puzzle = new Puzzle(DIMENSAO);
 		desenharBlocos();
+		
 		//embaralha
-		var funcaoEmbaralhar = function() {
-			$("#embaralhar").attr("disabled", "disabled");
-			$("#resolver").attr("disabled", "disabled");
-			embaralhar(puzzle, NUM_EMBARALHOS, function() {
-				$("#embaralhar").removeAttr("disabled");
-				$("#resolver").removeAttr("disabled");
-			});
+		var funcaoEmbaralhar = function(callbackFunction) {
+			embaralhar(puzzle, NUM_EMBARALHOS, callbackFunction);
 		};
-		$("#embaralhar").on("click", funcaoEmbaralhar);
-		funcaoEmbaralhar();
+		
 		//resolve
-		$("#resolver").on("click", function() {
+		var funcaoResolver = function(callbackFunction) {
 			var caminho = puzzle.resolve();
-			$("#embaralhar").attr("disabled", "disabled");
-			$("#resolver").attr("disabled", "disabled");
-			resolver(puzzle, caminho, function() {
-				$("#embaralhar").removeAttr("disabled");
-				$("#resolver").removeAttr("disabled");
-			});
-		});
+			resolver(puzzle, caminho, callbackFunction);
+		};
+		
 		//move
 		$("#container div").on("click", function() {
-			var id = $(this).attr("id");
-			var num = parseInt(id.slice(1));
-			var direcao = puzzle.move(num);
-			if (direcao != null) {
-				movimentar(id, direcao);
+			if (!movimentoLock) {
+				var id = $(this).attr("id");
+				var num = parseInt(id.slice(1));
+				var direcao = puzzle.move(num);
+				if (direcao != null) {
+					movimentar(id, direcao);
+				}
 			}
 		});
+		
+		//reinicia o jogo 
+		var funcaoReinicia = function() {
+			$("#tela-derrota").css("display", "none");
+			funcaoEmbaralhar(function() {
+				cronometro.reinicia();
+				diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo);
+			});
+		};
+		
+		//perde o jogo
+		var funcaoPerderJogo = function() {
+			funcaoResolver(function() {
+				$("#tela-derrota").css("display", "normal");
+			});
+		};
+		$("#reiniciar-jogo").on("click", funcaoReinicia);
+		
+		//vence o jogo
+		
+		//cronometro 
+		var tempoTotal = parseInt($("#tempo-total").val());
+		var tempoRestante = $("#tempo-restante");
+		var cronometro = new Cronometro(tempoTotal);
+		
+		funcaoEmbaralhar(function() {
+			diminuiTempoCronometro(cronometro, tempoRestante, funcaoPerderJogo);
+		});
+		
 	}
 	
 });
