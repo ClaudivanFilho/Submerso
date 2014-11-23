@@ -30,7 +30,7 @@ $(document).ready(function() {
 		//------------------------------------------------
 		//Ação inicial
 		jogo.embaralha(function() {
-			cronometro.inicia();
+			cronometro.reinicia();
 		});
 		$("#tela-vencer").hide();
 		$("#tela-derrota").hide();

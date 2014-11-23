@@ -33,22 +33,22 @@
   <body ng-app="starter">
 
     <!-- Tela de perder o jogo -->
-    <div style="background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; position: absolute; z-index: 9999;" id="tela-derrota">
-	<div style="position: absolute; top: 50%; right: 0; left: 0; margin: auto;">
-		<center>
-			<h2 style="color: white;">Você perdeu!</h2>
-			<button class="button button-light reiniciar-jogo">Reiniciar jogo</button>
-		</center>
-	</div>
+    <div id="tela-derrota">
+		<div>
+			<center>
+				<h2>Você perdeu!</h2>
+				<button class="button button-light reiniciar-jogo">Reiniciar jogo</button>
+			</center>
+		</div>
     </div>
     <!-- Tela de vencer o jogo -->
-    <div style="background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; position: absolute; z-index: 9999;" id="tela-vencer">
-	<div style="position: absolute; top: 50%; right: 0; left: 0; margin: auto;">
-		<center>
-			<h2 style="color: white;">Você venceu!</h2>
-			<button class="button button-light reiniciar-jogo">Reiniciar jogo</button>
-		</center>
-	</div>
+    <div id="tela-vencer">
+		<div>
+			<center>
+				<h2>Você venceu!</h2>
+				<button class="button button-light reiniciar-jogo">Reiniciar jogo</button>
+			</center>
+		</div>
     </div>
     <ion-pane>
       <ion-header-bar class="bar-stable">
@@ -61,29 +61,30 @@
 			<button class="button button-light col-sm-6" id="embaralhar">Embaralhar</button>
 			<button class="button button-light col-sm-6" id="resolver">Resolver</button>
 		</div>
-		
-		<div id="mostrar-numero-container">
+
+		<!-- Opções do jogo -->
+		<div id="opcoes-jogo">
 			<button class="button button-light mostrar-numero"><i class="fa fa-heart"></i></button>
 			<button class="button button-light mutar" data-mutado="false"><i class="fa fa-bell"></i></button>
 			<button class="button button-light ajuda"><i class="fa fa-question"></i></button>
 		</div>
-		
+
 		<!-- Configurações do jogo -->
 		<input type="hidden" id="dimensao" value="3" /> <!-- Número de blocos -->
 		<input type="hidden" id="velocidade" value="200" /> <!-- Velocidade da animação dos blocos -->
-		<input type="hidden" id="embaralhos" value="9" /> <!-- Número de embaralhos feitos inicialmente -->
-		<input type="hidden" id="tempo-total" value="300" /> <!-- Em segundos -->
+		<input type="hidden" id="embaralhos" value="18" /> <!-- Número de embaralhos feitos inicialmente -->
+		<input type="hidden" id="tempo-total" value="3" /> <!-- Em segundos -->
 		<input type="hidden" id="margem" value="5" /> <!-- Em pixels -->
 		<input type="hidden" id="porcentagem" value="0.8" /> <!-- Porcentagem da tela que os blocos ocuparão -->
 		<input type="hidden" id="duracao-numeros" value="3.0" /> <!-- Duração de mostrar os números em segundos -->
-		
+
 		<div class="divisor"></div>
-		
+
 		<!-- Container dos blocos -->
 		<center><div id="container"></div></center>
-		
+
 		<div class="divisor"></div>
-		
+
 		<div id="cronometro">
 			<div id="tempo-restante"></div>
 		</div>

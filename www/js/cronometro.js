@@ -6,7 +6,7 @@ Construtor da classe
 function Cronometro(tempoTotal, barra, callbackFunction) {
 	this.tempoTotal = tempoTotal;
 	this.tempoAtual = this.tempoTotal;
-	this.pausado = false;
+	this.pausado = true;
 	this.barra = barra;
 	this.callbackFunction = callbackFunction;
 };
