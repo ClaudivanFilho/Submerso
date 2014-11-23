@@ -1,6 +1,6 @@
 
-$(document).ready(function() {
-	
+$(document).on("ready", function() {
+		
 	init();
 	
 	function init() {
@@ -24,12 +24,6 @@ $(document).ready(function() {
 		var jogo = new Jogo(puzzle, blocos, velocidade, numEmbaralhos);
 		var barra = $("#tempo-restante");
 		var cronometro = new Cronometro(tempoTotal, barra, perderJogo);
-		//Audio
-		var musica = new Howl({
-		  urls: ['audio/nyanlooped.mp3'],
-		  loop: true,
-		  volume: 0.5
-		});
 		
 		//------------------------------------------------
 		// AÇÕES
@@ -40,8 +34,17 @@ $(document).ready(function() {
 		});
 		$("#tela-vencer").hide();
 		$("#tela-derrota").hide();
-		musica.play();
-		
+		//musica do jogo 
+		var musica;
+		$(document).on("deviceready", function() {
+			musica = new Media(getPhoneGapPath() + "audio/nyanlooped.mp3", null, null, function(status) {
+				if (status == Media.MEDIA_STOPPED) {
+					musica.play();
+				}
+			});
+			musica.play();
+		});
+
 		//Movimentação 
 		function moverBloco(bloco) {
 			//Permite a movimentação apenas se o cronômetro não estiver pausado 
@@ -131,15 +134,20 @@ $(document).ready(function() {
 				$(this).find("i").removeClass("fa-bell-slash");
 				$(this).find("i").addClass("fa-bell");
 				$(this).data("mutado", "false");
-				musica.play();
+				if (musica) {
+					musica.play();
+				}
 			//muta 
 			} else {
 				$(this).find("i").removeClass("fa-bell");
 				$(this).find("i").addClass("fa-bell-slash");
 				$(this).data("mutado", "true");
-				musica.pause();
+				if (musica) {
+					musica.pause();
+				}
 			}	
 		});
+		
 	};
 
 });

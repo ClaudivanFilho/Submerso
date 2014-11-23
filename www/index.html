@@ -23,7 +23,6 @@
 	<!-- External libs -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="js/minheap.js"></script>
-	<script src="js/howler.min.js"></script>
 	<!-- User libs -->
     <script src="js/puzzle.js"></script>
 	<script src="js/bloco.js"></script>
@@ -31,6 +30,7 @@
     <script src="js/cronometro.js"></script>
     <script src="js/main.js"></script> <!-- Script principal. Começe a ler por aqui! -->
     <script src="js/app.js"></script>
+	<script src="js/audio.js"></script>
   </head>
   <body ng-app="starter">
 
@@ -67,11 +67,13 @@
 		<!-- Opções do jogo -->
 		<div id="opcoes-jogo">
 			<button class="button button-light mostrar-numero"><i class="fa fa-heart"></i></button>
-			<button class="button button-light mutar" data-mutado="false"><i class="fa fa-bell"></i></button>
+			<button class="button button-light mutar" data-mutado="false" on-click="play()"><i class="fa fa-bell"></i></button>
 			<button class="button button-light ajuda"><i class="fa fa-question"></i></button>
 		</div>
 
 		<!-- Configurações do jogo -->
+		<audio id="audio" src="audio/nyanlooped.mp3"></audio>
+		
 		<input type="hidden" id="dimensao" value="3" />		 	 <!-- Número de blocos -->
 		<input type="hidden" id="velocidade" value="200" />	 	 <!-- Velocidade da animação dos blocos -->
 		<input type="hidden" id="embaralhos" value="18" /> 		 <!-- Número de embaralhos feitos inicialmente -->

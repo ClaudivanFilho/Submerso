@@ -25,9 +25,17 @@ Jogo.prototype.move = function(num) {
 	var distancia = this.blocos[num-1].tamanho + this.blocos[num-1].margem;
 	var bloco = this.blocos[num-1].elemento;
 	var direcao = this.puzzle.move(num);
+	//Som de movimento 
 	var isMutado = $(".mutar").data("mutado") == "true";
 	if (direcao != null && !isMutado) {
-		new Howl({urls: ['audio/button-click.wav']}).play();
+		try {
+			if (window.som) {
+				window.som.stop();
+				window.som.release();
+			}
+			window.som = new Media(getPhoneGapPath() + "audio/button-click.wav");
+			window.som.play();
+		} catch(err) { } 
 	}
 	switch (direcao) {
 		case Direcao.ESQUERDA:
