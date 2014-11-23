@@ -24,6 +24,12 @@ $(document).ready(function() {
 		var jogo = new Jogo(puzzle, blocos, velocidade, numEmbaralhos);
 		var barra = $("#tempo-restante");
 		var cronometro = new Cronometro(tempoTotal, barra, perderJogo);
+		//Audio
+		var musica = new Howl({
+		  urls: ['audio/nyanlooped.mp3'],
+		  loop: true,
+		  volume: 0.5
+		});
 		
 		//------------------------------------------------
 		// AÇÕES
@@ -34,10 +40,12 @@ $(document).ready(function() {
 		});
 		$("#tela-vencer").hide();
 		$("#tela-derrota").hide();
+		musica.play();
 		
 		//Movimentação 
 		function moverBloco(bloco) {
 			//Permite a movimentação apenas se o cronômetro não estiver pausado 
+			//Necessário para não dar conflito com movimentações automáticas como embaralhar e resolver 
 			if (!cronometro.isPausado()) {
 				jogo.move(bloco);
 				if (puzzle.estaResolvido()) {
@@ -118,14 +126,18 @@ $(document).ready(function() {
 		
 		//Mutar 
 		$(".mutar").on("click", function() {
+			//desmuta 
 			if ($(this).data("mutado") == "true") {
 				$(this).find("i").removeClass("fa-bell-slash");
 				$(this).find("i").addClass("fa-bell");
 				$(this).data("mutado", "false");
+				musica.play();
+			//muta 
 			} else {
 				$(this).find("i").removeClass("fa-bell");
 				$(this).find("i").addClass("fa-bell-slash");
 				$(this).data("mutado", "true");
+				musica.pause();
 			}	
 		});
 	};

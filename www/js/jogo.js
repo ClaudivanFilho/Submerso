@@ -25,6 +25,10 @@ Jogo.prototype.move = function(num) {
 	var distancia = this.blocos[num-1].tamanho + this.blocos[num-1].margem;
 	var bloco = this.blocos[num-1].elemento;
 	var direcao = this.puzzle.move(num);
+	var isMutado = $(".mutar").data("mutado") == "true";
+	if (direcao != null && !isMutado) {
+		new Howl({urls: ['audio/button-click.wav']}).play();
+	}
 	switch (direcao) {
 		case Direcao.ESQUERDA:
 			bloco.animate({
