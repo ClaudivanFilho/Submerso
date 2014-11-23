@@ -1,3 +1,14 @@
+/**
+Construtor da classe
+@param puzzle 
+	Puzzle do jogo (instância da classe Puzzle) 
+@param blocos 
+	Array contendo os blocos (classe anônimo contendo os objetos jQuery juntamente com suas dimensões)
+@param velocidade 
+	Float representando a velocidade de animação dos blocos 
+@param numEmbaralhos 
+	Número de embaralhos inicial do jogo 
+**/
 function Jogo(puzzle, blocos, velocidade, numEmbaralhos) {
 	this.puzzle = puzzle;
 	this.blocos = blocos;
@@ -5,6 +16,11 @@ function Jogo(puzzle, blocos, velocidade, numEmbaralhos) {
 	this.numEmbaralhos = numEmbaralhos;
 };
 
+/**
+Move um bloco se o movimento for possível
+@param num 
+	Inteiro representando o bloco que se deseja mover 
+**/
 Jogo.prototype.move = function(num) {
 	var distancia = this.blocos[num-1].tamanho + this.blocos[num-1].margem;
 	var bloco = this.blocos[num-1].elemento;
@@ -33,6 +49,9 @@ Jogo.prototype.move = function(num) {
 	}
 };
 
+/**
+Move um bloco aleatório dentre os blocos em que são possíveis se movimentar dado a configuração atual  
+**/
 Jogo.prototype.moveAleatoriamente = function() {
 	var movimentosPossiveis = this.puzzle.getMovimentosPossiveis();
 	var rand;
@@ -44,6 +63,11 @@ Jogo.prototype.moveAleatoriamente = function() {
 	return bloco;
 };
 
+/**
+Embaralha o jogo, movimentando os blocos numEmbaralhos vezes 
+@param callbackFunction 
+	Função que será chamada ao termino do embaralho 
+**/
 Jogo.prototype.embaralha = function(callbackFunction) {
 	var that = this;
 	function embaralhaComAnimacao(callbackFunction, cont) {
@@ -59,6 +83,11 @@ Jogo.prototype.embaralha = function(callbackFunction) {
 	embaralhaComAnimacao(callbackFunction, this.numEmbaralhos);
 };
 
+/**
+Movimenta os blocos de tal forma que ao final o jogo estará resolvido 
+@param callbackFunction 
+	Função que será chamada ao termino da movimentação 
+**/
 Jogo.prototype.resolve = function(callbackFunction) {
 	var that = this;
 	function resolveComAnimacao(caminho, callbackFunction) {

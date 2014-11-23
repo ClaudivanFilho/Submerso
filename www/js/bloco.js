@@ -9,8 +9,8 @@ function desenharBlocos(desenho, tamanho, dimensao, margem) {
 	var blocos = [];
 	for (var i = 0; i < dimensao; i++) {
 		for (var j = 0; j < dimensao; j++) {
-			//diferente do ultimo elemento
 			var ultimoElemento = i == dimensao - 1 && j == dimensao - 1; 
+			//diferente do ultimo elemento
 			if (!ultimoElemento) {
 				var num = i * dimensao + j + 1;
 				var htmlImg = "<img src='img/" + desenho + "/parte" + num + ".gif' />";
