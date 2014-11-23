@@ -1,3 +1,6 @@
+/**
+Obtém o tamanho individual de cada bloco baseado na menor dimensão da tela e na porcentagem em que o tabuleiro deve ocupar 
+**/
 function getTamanhoBloco(porcentagemDaTela, dimensaoTabuleiro) {
 	var largura = screen.width; 
 	var altura = screen.height;
@@ -5,6 +8,9 @@ function getTamanhoBloco(porcentagemDaTela, dimensaoTabuleiro) {
 	return menorResolucao * porcentagemDaTela / dimensaoTabuleiro;
 };
 
+/**
+Desenha os blocos na tela 
+**/
 function desenharBlocos(desenho, tamanho, dimensao, margem) {
 	var blocos = [];
 	for (var i = 0; i < dimensao; i++) {
@@ -33,6 +39,9 @@ function desenharBlocos(desenho, tamanho, dimensao, margem) {
 	return blocos;
 };
 
+/**
+Muda o desenho dos blocos 
+**/
 function mudarDesenhoBlocos(novoDesenho, blocos) {
 	for (var i = 0; i < blocos.length; i++) {
 		var bloco = blocos[i];

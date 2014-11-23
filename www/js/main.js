@@ -7,13 +7,13 @@ $(document).ready(function() {
 		//------------------------------------------------
 		// CONSTANTES DEFINIDAS NO HTML
 		//------------------------------------------------
-		var dimensao = parseInt($("#dimensao").val());
-		var velocidade = parseInt($("#velocidade").val());
-		var numEmbaralhos = parseInt($("#embaralhos").val());
-		var margem = parseInt($("#margem").val());
-		var porcentagem = parseFloat($("#porcentagem").val());
-		var tempoTotal = parseInt($("#tempo-total").val());
-		var duracaoNumeros = parseInt($("#duracao-numeros").val());
+		var dimensao = parseInt($("#dimensao").val()); 				//dimensao do tabuleiro (exemplo: 3 = 3x3)
+		var velocidade = parseInt($("#velocidade").val()); 			//velocidade de animação dos blocos em milisegundos 
+		var numEmbaralhos = parseInt($("#embaralhos").val()); 		//número de embaralhos feitos ao início do jogo 
+		var margem = parseInt($("#margem").val()); 					//margem entre os blocos em pixels 
+		var porcentagem = parseFloat($("#porcentagem").val()); 		//porcentagem de ocupação do tabuleiro na tela (entre 0 e 1) 
+		var tempoTotal = parseInt($("#tempo-total").val()); 		//tempo total do cronômetro em segundos 
+		var duracaoNumeros = parseInt($("#duracao-numeros").val());	//duração em que os números ficarão expostos ao clicar em "mostrar números"
 		
 		//------------------------------------------------
 		// VARIÁVEIS DO JOGO 
