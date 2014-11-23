@@ -28,22 +28,30 @@ $(document).on("ready", function() {
 		//------------------------------------------------
 		// AÇÕES
 		//------------------------------------------------
-		//Ação inicial
-		jogo.embaralha(function() {
-			cronometro.reinicia();
-		});
+		//Tela inicial 
 		$("#tela-vencer").hide();
 		$("#tela-derrota").hide();
-		//musica do jogo 
-		var musica;
-		$(document).on("deviceready", function() {
-			musica = new Media(getPhoneGapPath() + "audio/nyanlooped.mp3", null, null, function(status) {
-				if (status == Media.MEDIA_STOPPED) {
-					musica.play();
-				}
-			});
-			musica.play();
+		$("#iniciar-jogo").on("click", function() {
+			$("#inicial").hide();
+			iniciarJogo();
 		});
+		
+		//Ação inicial
+		var musica;
+		function iniciarJogo() {
+			jogo.embaralha(function() {
+				cronometro.reinicia();
+			});
+			//musica do jogo 
+			try {
+				musica = new Media(getPhoneGapPath() + "audio/nyanlooped.mp3", null, null, function(status) {
+					if (status == Media.MEDIA_STOPPED) {
+						musica.play();
+					}
+				});
+				musica.play();
+			} catch(err) { } 
+		}
 
 		//Movimentação 
 		function moverBloco(bloco) {
