@@ -44,13 +44,16 @@ $(document).on("ready", function() {
 			});
 			//musica do jogo 
 			try {
-				musica = new Media(getPhoneGapPath() + "audio/nyanlooped.mp3", null, null, function(status) {
+				var arquivo = $("#musica").find("source").attr("src");
+				musica = new Media(getPhoneGapPath() + arquivo, null, null, function(status) {
 					if (status == Media.MEDIA_STOPPED) {
 						musica.play();
 					}
 				});
 				musica.play();
 			} catch(err) { } 
+			//musica com HTML 5
+			$("#musica")[0].play();
 		}
 
 		//Movimentação 
@@ -156,6 +159,7 @@ $(document).on("ready", function() {
 				if (musica) {
 					musica.play();
 				}
+				$("#musica")[0].play();
 			//muta 
 			} else {
 				$(this).attr("src", "img/som-desabilitado.png");
@@ -163,6 +167,7 @@ $(document).on("ready", function() {
 				if (musica) {
 					musica.pause();
 				}
+				$("#musica")[0].pause();
 			}	
 		});
 		

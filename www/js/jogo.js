@@ -33,9 +33,11 @@ Jogo.prototype.move = function(num) {
 				window.som.stop();
 				window.som.release();
 			}
-			window.som = new Media(getPhoneGapPath() + "audio/button-click.wav");
+			var arquivo = $("#sonoro").find("source").attr("src");
+			window.som = new Media(getPhoneGapPath() + arquivo);
 			window.som.play();
 		} catch(err) { } 
+		$("#sonoro")[0].play();
 	}
 	switch (direcao) {
 		case Direcao.ESQUERDA:

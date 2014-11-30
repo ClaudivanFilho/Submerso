@@ -69,6 +69,24 @@
 		
       <div ng-controller="MainController" id="controller" >
 	  
+	    <!-- Musica -->
+		<audio id="musica" loop>
+			<source src="audio/saga_musix_-_10000m_below_sea_level.ogg"  type="audio/ogg" />
+		</audio>
+		<!-- Efeito sonoro -->
+		<audio id="sonoro">
+			<source src="audio/button-click.wav"  type="audio/wav" />
+		</audio>
+		
+		<!-- Configurações do jogo -->
+		<input type="hidden" id="dimensao" value="3" />		 	 <!-- Número de blocos -->
+		<input type="hidden" id="velocidade" value="200" />	 	 <!-- Velocidade da animação dos blocos -->
+		<input type="hidden" id="embaralhos" value="18" /> 		 <!-- Número de embaralhos feitos inicialmente -->
+		<input type="hidden" id="tempo-total" value="300" />	 <!-- Tempo total do cronômetro em segundos -->
+		<input type="hidden" id="margem" value="5" /> 			 <!-- Margem entre os blocos em pixels -->
+		<input type="hidden" id="porcentagem" value="0.7" />	 <!-- Porcentagem da tela que os blocos ocuparão -->
+		<input type="hidden" id="duracao-numeros" value="3.0" /> <!-- Duração de mostrar os números em segundos -->
+
 		<!-- Opções do jogo -->
 		<div id="opcoes-jogo">
 			<div>
@@ -80,28 +98,20 @@
 		</div>
 
 		<div class="divisor"></div>
-		
-		<!-- Configurações do jogo -->
-		<input type="hidden" id="dimensao" value="3" />		 	 <!-- Número de blocos -->
-		<input type="hidden" id="velocidade" value="200" />	 	 <!-- Velocidade da animação dos blocos -->
-		<input type="hidden" id="embaralhos" value="18" /> 		 <!-- Número de embaralhos feitos inicialmente -->
-		<input type="hidden" id="tempo-total" value="300" />	 <!-- Tempo total do cronômetro em segundos -->
-		<input type="hidden" id="margem" value="5" /> 			 <!-- Margem entre os blocos em pixels -->
-		<input type="hidden" id="porcentagem" value="0.8" />	 <!-- Porcentagem da tela que os blocos ocuparão -->
-		<input type="hidden" id="duracao-numeros" value="3.0" /> <!-- Duração de mostrar os números em segundos -->
-
-		<div class="divisor"></div>
 
 		<!-- Container dos blocos -->
 		<center><div id="container"></div></center>
 
 		<div class="divisor"></div>
 
+		<!-- Cronometro -->
 		<div id="cronometro">
 			<div id="tempo-restante"></div>
 		</div>
-      </div>
-      </ion-content>
+        </div>
+		<center><div style="width: 80%; color: #000030"><h3 style="float: right;">Tempo restante<h3></div></center>
+		
+      </ion-content> 
     </ion-pane>
   </body>
 </html>
