@@ -1,4 +1,8 @@
 /* Geral */
+@font-face {
+	font-family: Submerso;
+	src: url('../fonts/Guilty Treasure.otf');
+}
 .divisor {
 	clear: both; 
 	margin-bottom: 30px;
@@ -24,10 +28,18 @@
 	margin: 20px;
 	padding: 10px;
 	background-color: rgb(149, 179, 215);
-	text-color: black;
 	font-weight: bold;
 	border: 0px;
 	border-radius: 5px;
+}
+#inicial button, #tempo-restante-texto {
+	font-family: Submerso;
+	font-size: 30px;
+	text-shadow: 1px 1px 1px black;
+	color: white;
+}
+#tempo-restante-texto {
+	float: right; 
 }
 #inicial img {
 	width: 150px;

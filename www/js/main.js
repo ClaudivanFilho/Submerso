@@ -43,17 +43,7 @@ $(document).on("ready", function() {
 				cronometro.reinicia();
 			});
 			//musica do jogo 
-			try {
-				var arquivo = $("#musica").find("source").attr("src");
-				musica = new Media(getPhoneGapPath() + arquivo, null, null, function(status) {
-					if (status == Media.MEDIA_STOPPED) {
-						musica.play();
-					}
-				});
-				musica.play();
-			} catch(err) { } 
-			//musica com HTML 5
-			$("#musica")[0].play();
+			musica = tocarMusica();
 		}
 
 		//Movimentação 
