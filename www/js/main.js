@@ -139,6 +139,7 @@ $(document).on("ready", function() {
 		});
 		
 		$(".repetir").on("click",function(){
+				cronometro.pausa();
 				reiniciarJogo();
 		});
 		
