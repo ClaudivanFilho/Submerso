@@ -131,24 +131,30 @@ $(document).on("ready", function() {
 			}, proximoTempo);
 		};
 		$(".mostrar-numero").on("click", function() {
-			$(this).attr("disabled", "disabled");
-			mostrarNumeros(0, false);
+			if ($(this).attr("src") == "img/ajuda.png") {
+				mostrarNumeros(0, false);
+			} 
+			$(this).attr("src", "img/ajuda-desabilitado.png");
+			
 		});
+		
+		$(".repetir").on("click",function(){
+				reiniciarJogo();
+		});
+		
 		
 		//Mutar 
 		$(".mutar").on("click", function() {
 			//desmuta 
 			if ($(this).data("mutado") == "true") {
-				$(this).find("i").removeClass("fa-bell-slash");
-				$(this).find("i").addClass("fa-bell");
+				$(this).attr("src", "img/som.png");
 				$(this).data("mutado", "false");
 				if (musica) {
 					musica.play();
 				}
 			//muta 
 			} else {
-				$(this).find("i").removeClass("fa-bell");
-				$(this).find("i").addClass("fa-bell-slash");
+				$(this).attr("src", "img/som-desabilitado.png");
 				$(this).data("mutado", "true");
 				if (musica) {
 					musica.pause();
