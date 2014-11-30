@@ -138,9 +138,12 @@ $(document).on("ready", function() {
 			
 		});
 		
+		//Repetir
 		$(".repetir").on("click",function(){
+			if (!cronometro.isPausado()) {
 				cronometro.pausa();
 				reiniciarJogo();
+			}
 		});
 		
 		
